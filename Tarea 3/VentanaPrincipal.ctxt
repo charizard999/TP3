@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=VentanaPrincipal
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ VentanaPrincipal\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=VentanaPrincipal()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ VentanaPrincipal\r\n
+comment2.params=fila\ columna\ e
+comment2.target=boolean\ editCellAt(int,\ int,\ java.util.EventObject)
+comment3.params=
+comment3.target=Controlador\ getControlador()
+comment4.params=controlador
+comment4.target=void\ setControlador(Controlador)
+comment5.params=
+comment5.target=void\ readExcelFile()
+numComments=6
