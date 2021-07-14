@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=NodoVideo
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ NodoVideo\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=video
+comment1.target=NodoVideo(Video)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ NodoVideo\r\n
+comment2.params=
+comment2.target=Video\ getVideo()
+comment3.params=video
+comment3.target=void\ setVideo(Video)
+comment4.params=
+comment4.target=NodoVideo\ getSig()
+comment5.params=sig
+comment5.target=void\ setSig(NodoVideo)
+numComments=6

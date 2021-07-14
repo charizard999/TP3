@@ -11,7 +11,6 @@ import java.util.EventObject;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 
@@ -50,15 +49,16 @@ public class VentanaPrincipal  extends JFrame
         private JButton nuevo;
         private static DefaultTableModel modelo;
         private static JTable jt;
-         
+       
+       
     /**
      * Constructor for objects of class VentanaPrincipal
      */
     public VentanaPrincipal()
     {
         
-        
-         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        controlador  = new Controlador();
+        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         this.setLayout(null);
         this.setSize(700, 600);
@@ -85,7 +85,7 @@ public class VentanaPrincipal  extends JFrame
         tfPais = new JTextField(20);
         
         //JTable
-        modelo = new DefaultTableModel(new String[][] {}, new String[] {"Título", "Casting", "País","Tipo","Director","Año","Audiencia","Duración","Categoría","País","Agregada en",});
+        modelo = new DefaultTableModel(new String[][] {}, new String[] {"Título", "Casting", "País","Tipo","Director","Año","Audiencia","Duración","Categoría","País","Agregada en"});
 
         jt= new JTable(modelo) {
             public boolean editCellAt(int fila, int columna, EventObject e) {
@@ -113,10 +113,13 @@ public class VentanaPrincipal  extends JFrame
         
         //readExcelFile(new File("netflix_titles.csv"));
         try{
-        readExcelFile() ;
+        controlador.readExcelFile();
+        
     }catch(Exception ex){
          System.out.print(ex);
     }
+    
+         controlador.ordenarDatos();
         
     }
     
@@ -128,85 +131,7 @@ public class VentanaPrincipal  extends JFrame
         this.controlador = controlador;
     }
     
-    public void readExcelFile()  throws Exception{
-          FileInputStream input_document = new FileInputStream(new File("netflix_titles.xls")); 
-          HSSFWorkbook workbook = new HSSFWorkbook(input_document);
-            //Acceso a la primera hoja del documento
-            HSSFSheet hoja = workbook.getSheetAt(0);
-            List<String> data = new ArrayList<String>();
-            
-            //Recorremos las filas del documento
-            Iterator rows = hoja.rowIterator();
-            while (rows.hasNext()) {
-               HSSFRow row = (HSSFRow) rows.next();
-               Iterator cells = row.cellIterator();
-               while (cells.hasNext()) {
-                  HSSFCell cell = (HSSFCell) cells.next();
-                  //if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-                     data.add(cell.getRichStringCellValue().getString());
-                //  }
-               }
-            } 
-    }
-    
-    
-    
-    /* public void readExcelFile(File excelFile){
-        InputStream excelStream = null;
-        try {
-            excelStream = new FileInputStream(excelFile);
-            // High level representation of a workbook.
-            // Representación del más alto nivel de la hoja excel.
-            HSSFWorkbook hssfWorkbook = new HSSFWorkbook(excelStream);
-            // We chose the sheet is passed as parameter. 
-            // Elegimos la hoja que se pasa por parámetro.
-            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
-            // An object that allows us to read a row of the excel sheet, and extract from it the cell contents.
-            // Objeto que nos permite leer un fila de la hoja excel, y de aquí extraer el contenido de las celdas.
-            HSSFRow hssfRow;
-            // Initialize the object to read the value of the cell 
-            // Inicializo el objeto que leerá el valor de la celda
-            HSSFCell cell;                        
-            // I get the number of rows occupied on the sheet
-            // Obtengo el número de filas ocupadas en la hoja
-            int rows = hssfSheet.getLastRowNum();
-            // I get the number of columns occupied on the sheet
-            // Obtengo el número de columnas ocupadas en la hoja
-            int cols = 0;            
-            // A string used to store the reading cell
-            // Cadena que usamos para almacenar la lectura de la celda
-            String cellValue;  
-            // For this example we'll loop through the rows getting the data we want
-            // Para este ejemplo vamos a recorrer las filas obteniendo los datos que queremos            
-            for (int r = 0; r < rows; r++) {
-                hssfRow = hssfSheet.getRow(r);
-                if (hssfRow == null){
-                    break;
-                }else{
-                    System.out.print("Row: " + r + " -> ");
-                    for (int c = 0; c < (cols = hssfRow.getLastCellNum()); c++) {
-                        /* 
-                            We have those cell types (tenemos estos tipos de celda): 
-                                CELL_TYPE_BLANK, CELL_TYPE_NUMERIC, CELL_TYPE_BLANK, CELL_TYPE_FORMULA, CELL_TYPE_BOOLEAN, CELL_TYPE_ERROR
-                        */
-         /*               cellValue = hssfRow.getCell(c) == null?"": hssfRow.getCell(c).getStringCellValue();
-                                                      
-                        System.out.print("[Column " + c + ": " + cellValue + "] ");
-                    }
-                    System.out.println();
-                }
-            }            
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println("The file not exists (No se encontró el fichero): " + fileNotFoundException);
-        } catch (IOException ex) {
-            System.out.println("Error in file procesing (Error al procesar el fichero): " + ex);
-        } finally {
-            try {
-                excelStream.close();
-            } catch (IOException ex) {
-                System.out.println("Error in file processing after close it (Error al procesar el fichero después de cerrarlo): " + ex);
-            }
-        }
-    }*/
+  
+   
     
 }

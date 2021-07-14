@@ -1,7 +1,21 @@
 #BlueJ class context
 comment0.target=Controlador
 comment1.params=
-comment1.target=VentanaPrincipal\ getVentanaPrincipal()
-comment2.params=principal
-comment2.target=void\ setVentanaPrincipal(VentanaPrincipal)
-numComments=3
+comment1.target=Controlador()
+comment2.params=
+comment2.target=VentanaPrincipal\ getVentanaPrincipal()
+comment3.params=principal
+comment3.target=void\ setVentanaPrincipal(VentanaPrincipal)
+comment4.params=listaCategorias
+comment4.target=void\ setListaCategoria(ListaCategoria)
+comment5.params=
+comment5.target=ListaCategoria\ getListaCategoria()
+comment6.params=
+comment6.target=void\ readExcelFile()
+comment7.params=
+comment7.target=void\ llenarCategorias()
+comment8.params=
+comment8.target=void\ imprimirLista()
+comment9.params=
+comment9.target=void\ ordenarDatos()
+numComments=10

@@ -9,12 +9,13 @@ public class Categoria
 {
    
     private String nombre;
+    private ListaVideo listaVideos;
     /**
      * Constructor for objects of class Categoteria
      */
-    public Categoria()
+    public Categoria(String nombre)
     {
-       
+        this.nombre = nombre;   
     }
 
     public void setNombre(String nombre){
@@ -22,6 +23,13 @@ public class Categoria
     }
     public String getNombre(){
         return nombre;
+    }
+    
+    public void setListaVideo(ListaVideo listaVideos){
+        this.listaVideos = listaVideos;
+    }
+    public ListaVideo getListaVideo(){
+        return listaVideos;
     }
 
 }
