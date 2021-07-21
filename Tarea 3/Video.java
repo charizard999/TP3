@@ -87,7 +87,7 @@ public class Video
         public void setCategoría(String categoría){
         this.categoría = categoría;
     }
-    public String getCategoríar(){
+    public String getCategoría(){
         return categoría;
     }  
         public void setAño_produccion(String año_produccion){
@@ -95,6 +95,12 @@ public class Video
     }
     public String getAño_produccion(){
         return año_produccion;
+    }  
+       public void setCasting(String casting){
+        this.casting = casting;
+    }
+    public String getCasting(){
+        return casting;
     }  
 
 

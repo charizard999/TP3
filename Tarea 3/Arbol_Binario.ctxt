@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Arbol_Binario
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Arbol_Binario\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=boolean\ arbolVacio()
+comment2.params=
+comment2.target=Nodo\ getRaiz()
+comment3.params=categoria
+comment3.target=boolean\ buscarElemento(java.lang.String)
+comment4.params=video
+comment4.target=void\ agregarVideo(Video)
+comment5.params=auxiliar
+comment5.target=void\ inOrder(Nodo)
+comment6.params=categoria
+comment6.target=void\ agregarNodo(Categoria)
+numComments=7

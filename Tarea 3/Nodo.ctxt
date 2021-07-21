@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Nodo
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Nodo\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=categoria
+comment1.target=Nodo(Categoria)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Nodo\r\n
+comment2.params=
+comment2.target=Categoria\ getCategoria()
+comment3.params=
+comment3.target=void\ setCategoria()
+comment4.params=
+comment4.target=Nodo\ getNodoDerecho()
+comment4.text=\r\n\ Obtener\ nodo\ derecho.\r\n\r\n\ \r\n\ @return\ listaPersona\ (Nodo)\r\n
+comment5.params=derecho
+comment5.target=void\ setNodoDerecho(Nodo)
+comment5.text=\r\n\ Setear\ nodo\ derecho.\r\n\r\n\ @param\ derecho\ (Nodo).\r\n\ \r\n
+comment6.params=
+comment6.target=Nodo\ getNodoIzquierda()
+comment6.text=\r\n\ Obtener\ nodo\ izquierdo.\r\n\r\n\ \r\n\ @return\ listaPersona\ (Nodo)\r\n
+comment7.params=izquierda
+comment7.target=void\ setNodoIzquierda(Nodo)
+comment7.text=\r\n\ Setear\ noddo\ izquierdo.\r\n\r\n\ @param\ izquierda\ (Nodo).\r\n\ \r\n
+numComments=8

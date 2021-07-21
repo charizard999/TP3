@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Write a description of class Categoteria here.
@@ -9,13 +10,14 @@ public class Categoria
 {
    
     private String nombre;
-    private ListaVideo listaVideos;
+    private ArrayList<Video> listaVideos;
     /**
      * Constructor for objects of class Categoteria
      */
     public Categoria(String nombre)
     {
-        this.nombre = nombre;   
+        this.nombre = nombre;  
+        listaVideos = new ArrayList<Video>();
     }
 
     public void setNombre(String nombre){
@@ -25,10 +27,10 @@ public class Categoria
         return nombre;
     }
     
-    public void setListaVideo(ListaVideo listaVideos){
+    public void setListaVideo(ArrayList<Video> listaVideos){
         this.listaVideos = listaVideos;
     }
-    public ListaVideo getListaVideo(){
+    public ArrayList<Video> getListaVideo(){
         return listaVideos;
     }
 

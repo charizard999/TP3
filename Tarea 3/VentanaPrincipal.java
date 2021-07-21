@@ -113,12 +113,12 @@ public class VentanaPrincipal  extends JFrame
         
         //readExcelFile(new File("netflix_titles.csv"));
         try{
-        controlador.readExcelFile();
-        
+        //controlador.readExcelFile();
+        controlador.leerCSV();
     }catch(Exception ex){
          System.out.print(ex);
     }
-    
+         
          controlador.ordenarDatos();
         
     }
