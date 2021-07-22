@@ -11,16 +11,16 @@ public class Video
     
     private String show_id;
     private String tipo;
-    private String título;
+    private String titulo;
     private String director;
     private String casting; // hacer get y set
-    private String país;
+    private String pais;
     private String fecha_agregacion;
     private String año_produccion;
     private String audiencia;
-    private String duración;
-    private String categoría;
-    private String descripción;
+    private String duracion;
+    private String categoria;
+    private String descripcion;
     /**
      * Constructor for objects of class Video
      */
@@ -42,17 +42,17 @@ public class Video
     public String getTipo(){
         return tipo;
     }    
-      public void setTítulo(String título){
-        this.título = título;
+      public void setTitulo(String título){
+        this.titulo = título;
     }
-    public String getTítulo(){
-        return título;
+    public String getTitulo(){
+        return titulo;
     }    
-          public void setPaís(String país){
-        this.país = país;
+          public void setPais(String pais){
+        this.pais = pais;
     }
-    public String getPaís(){
-        return país;
+    public String getPais(){
+        return pais;
     }  
          public void setFecha_agregacion(String fecha_agregacion){
         this.fecha_agregacion = fecha_agregacion;
@@ -66,17 +66,17 @@ public class Video
     public String getAudiencia(){
         return audiencia;
     }   
-         public void setDuración(String duración){
-        this.duración = duración;
+         public void setDuracion(String duración){
+        this.duracion = duración;
     }
-    public String getDuración(){
-        return duración;
+    public String getDuracion(){
+        return duracion;
     }  
-         public void setDescripción(String descripción){
-        this.descripción = descripción;
+         public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
     }
-    public String getDescripción(){
-        return descripción;
+    public String getDescripcion(){
+        return descripcion;
     } 
          public void setDirector(String director){
         this.director = director;
@@ -84,11 +84,11 @@ public class Video
     public String getDirector(){
         return director;
     }  
-        public void setCategoría(String categoría){
-        this.categoría = categoría;
+        public void setCategoria(String categoria){
+        this.categoria = categoria;
     }
-    public String getCategoría(){
-        return categoría;
+    public String getCategoria(){
+        return categoria;
     }  
         public void setAño_produccion(String año_produccion){
         this.año_produccion = año_produccion;
@@ -102,6 +102,8 @@ public class Video
     public String getCasting(){
         return casting;
     }  
+    
+    
 
 
    

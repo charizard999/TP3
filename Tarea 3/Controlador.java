@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
-
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,6 +15,8 @@ import java.util.List;
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.stream.Collectors;
+
 
 public class Controlador
 {
@@ -23,15 +24,22 @@ public class Controlador
     List<String> data;
     String [] categorias = {"Action & Adventure","TV Drama","Dramas","International Movies","Comedies","Romantic Movies","Crime TV Shows",
             "International TV Shows","TV Mysteries","Independent Movies","Sports Movies","Thrillers","LGBTQ Movies",
-            "Romantic TV Shows"};
+            "Romantic TV Shows" , "Horror Movies", "Spanish-Language TV Shows", "Documentaries", "Sci-Fi & Fantasy","Stand-Up Comedy & Talk Shows",
+            "Children & Family Movies", "Kids' TV","Reality TV","Docuseries","TV Comedies","Independent Movies", "British TV Shows",
+            " Crime TV Shows", "Action & Adventure", "Stand-Up Comedy","Children & Family Movies", "Classic Movies", "Classic & Cult TV", 
+            "TV Mysteries", "TV Thrillers","Music & Musicals" , "Faith & Spirituality","Anime Features" };
     private List<String[]> datos;
     private String separador=";";
     private String quote ="\"";
+    private Arbol_Binario arbolCategorias;
+    private List<Video> videos;
 
     public Controlador(){
         data = new ArrayList<String>();
         datos =new ArrayList<>();
-          
+        videos = new ArrayList<>();
+        arbolCategorias = new Arbol_Binario();
+
     }
 
     private String[] removeTrailingQuotes(String[] fields) {
@@ -57,17 +65,17 @@ public class Controlador
                     System.out.println(line.replace(",", ""));
                     break;
                 }else{
-                String [] fields = line.split(separador);
-                  // System.out.println(Arrays.toString(fields));
+                    String [] fields = line.split(separador);
+                    // System.out.println(Arrays.toString(fields));
 
-                fields = removeTrailingQuotes(fields);
-                 // System.out.println(Arrays.toString(fields));
-                  System.out.println(fields[0]);
-                datos.add(fields);
-                line = br.readLine();
-               }
+                    fields = removeTrailingQuotes(fields);
+                    // System.out.println(Arrays.toString(fields));
+                    System.out.println(fields[0]);
+                    datos.add(fields);
+                    line = br.readLine();
+                }
             }
-            
+
             System.out.println(datos.size());
 
         } catch (Exception e) {
@@ -84,20 +92,36 @@ public class Controlador
                 }
             }
         }
-    
+
     }
 
     public VentanaPrincipal getVentanaPrincipal() {
         return principal;
     }
-
     public void setVentanaPrincipal(VentanaPrincipal principal) {
         this.principal = principal;
 
     }
+    
+    public Arbol_Binario getArbol() {
+        return arbolCategorias;
+    }
+    public void setArbol(Arbol_Binario arbolCategorias) {
+        this.arbolCategorias = arbolCategorias;
+
+    }
+
+    
+    public List<Video> getListaVideo() {
+        return videos;
+    }
+    public void setListaVideo(List<Video> videos) {
+        this.videos = videos;
+
+    }
 
     public void readExcelFile()  throws Exception{
-        FileInputStream input_document = new FileInputStream(new File("Libro1.xls")); 
+        FileInputStream input_document = new FileInputStream(new File("netflix_movies.xls")); 
         HSSFWorkbook workbook = new HSSFWorkbook(input_document);
         HSSFSheet hoja = workbook.getSheetAt(0);
         for( Row row: hoja){
@@ -115,61 +139,46 @@ public class Controlador
 
     public void llenarCategorias(){
         for(int i=0; i<categorias.length; i++){
-            // System.out.println(data.get(i));
-           
+            Categoria categoria = new Categoria(categorias[i]);
+            arbolCategorias.insertar(categoria);
+            
         }
     }
 
     public void imprimirLista(){
         llenarCategorias();
-        
+
     }
 
     public void ordenarDatos(){
-        System.out.println("Datos ");
-        List<Video> listaVideo = new ArrayList(); 
-        
-        int i=0;
-        for(int m=4; m < datos.size(); m++){ //
-                Video video = new Video();
-                video.setShow_id(datos.get(m)[i]); //show_id
-                video.setTipo(datos.get(m)[i+1]); // type
-                video.setTítulo(datos.get(m)[i+2]); //titulo
-                video.setDirector(datos.get(m)[i+3]); // director
-                //falta casting
-                int length = datos.get(m).length;
-                video.setPaís(datos.get(m)[length-7]);
-                video.setFecha_agregacion(datos.get(m)[length-6]);
-                video.setAño_produccion(datos.get(m)[length-5]);
-                video.setAudiencia(datos.get(m)[length-4]);
-                video.setDuración(datos.get(m)[length-3]);
-                video.setCategoría(datos.get(m)[length-2]);
-                listaVideo.add(video);
-        }
-         
-      
-            for(int m=0; m < listaVideo.size(); m++){ //
-              System.out.println(listaVideo.get(m).getTipo());
-            }
-     
-     
-      /* 
-       * 
-       * for(int i = 12; i< data.size(); i+=12){
+        for(int i = 12; i< data.size(); i+=12){
             // objeto de video y llenarlo con los set
+            Video video = new Video();
             video.setShow_id(data.get(i)); //show_id
-            video.setTipo(data.get(1+1));
-            video.setTítulo(data.get(1+2));
-            video.setDirector(data.get(1+3));
-            video.setCasting(data.get(1+4));
-            video.setPaís(data.get(1+5));
-            video.setFecha_agregacion(data.get(1+6));
-            video.setAño_produccion(data.get(1+7));
-            video.setAudiencia(data.get(1+8));
-            video.setDuración(data.get(1+9));
-            video.setAudiencia(data.get(1+10));
-            video.setDescripción(data.get(1+11));
-        }*/
+            video.setTipo(data.get(i+1));
+            video.setTitulo(data.get(i+2));
+            video.setDirector(data.get(i+3));
+            video.setCasting(data.get(i+4));
+            video.setPais(data.get(i+5));
+            video.setFecha_agregacion(data.get(i+6));
+            video.setAño_produccion(data.get(i+7));
+            video.setAudiencia(data.get(i+8));
+            video.setDuracion(data.get(i+9));
+            video.setCategoria(data.get(i+10));
+            video.setDescripcion(data.get(i+11));
+            videos.add(video);
+        }
     }
-
+    
+    int index=0;
+    public void insertarVideosCategorias(){
+         for(int i=0; i<categorias.length; i++){
+             index = i;
+             List<Video> videosCategorias = videos.stream().filter(x -> x.getCategoria().contains(categorias[index])).collect(Collectors.toList());  
+             // falta meterlos a lista de cada nodo;
+             Nodo aux = arbolCategorias.buscarNodo(categorias[index]);
+             aux.getCategoria().setListaVideo((ArrayList<Video>)videosCategorias);
+        }
+     
+    }
 }

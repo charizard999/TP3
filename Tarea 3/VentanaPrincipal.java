@@ -25,11 +25,13 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Cell;
+import java.awt.event.*;
 
 
 
 import java.awt.Color;
-
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 /**
  * Write a description of class VentanaPrincipal here.
  * 
@@ -56,22 +58,25 @@ public class VentanaPrincipal  extends JFrame
      */
     public VentanaPrincipal()
     {
-        
+         
         controlador  = new Controlador();
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         this.setLayout(null);
-        this.setSize(700, 600);
-        this.setResizable(false);
+        this.setSize(800, 600);
+        this.setResizable(true);
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation((int)(size.getWidth()-this.getWidth())/2,(int)(size.getHeight()-this.getHeight())/2 );
-        
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setUndecorated(false);
+        this.setVisible(true);
         //JPanel
         JPanel jpTop = new JPanel();
         
-        jpTop.setSize(new Dimension(900,100));
+        jpTop.setSize(new Dimension((int)this.getWidth()-100,100));
         buscar = new JButton();
         buscar.setText("Buscar");
+        
         JPanel jpTabla= new JPanel();
 
         
@@ -85,7 +90,7 @@ public class VentanaPrincipal  extends JFrame
         tfPais = new JTextField(20);
         
         //JTable
-        modelo = new DefaultTableModel(new String[][] {}, new String[] {"Título", "Casting", "País","Tipo","Director","Año","Audiencia","Duración","Categoría","País","Agregada en"});
+        modelo = new DefaultTableModel(new String[][] {}, new String[] {"Título", "Casting", "País","Tipo","Director","Año","Audiencia","Duración","Categoría","Agregada en"});
 
         jt= new JTable(modelo) {
             public boolean editCellAt(int fila, int columna, EventObject e) {
@@ -94,11 +99,11 @@ public class VentanaPrincipal  extends JFrame
         };
         
         JScrollPane js= new JScrollPane(jt);
-        js.setBounds(40,120, 800, 300);
+        js.setBounds(40,120, (int)this.getWidth()-100, (int)this.getHeight()/2);
         
-        this.setSize(900, 600);
-        this.setResizable(false);
-        this.setLocation((int)(size.getWidth()-this.getWidth())/2,(int)(size.getHeight()-this.getHeight())/2 );
+      //  this.setSize(900, 600);
+       // this.setResizable(false);
+       // this.setLocation((int)(size.getWidth()-this.getWidth())/2,(int)(size.getHeight()-this.getHeight())/2 );
 
         jpTop.add(tfNombreVideo);
         jpTop.add(tfCategoria);
@@ -113,14 +118,55 @@ public class VentanaPrincipal  extends JFrame
         
         //readExcelFile(new File("netflix_titles.csv"));
         try{
-        //controlador.readExcelFile();
-        controlador.leerCSV();
+        controlador.readExcelFile();
+       // controlador.leerCSV();
     }catch(Exception ex){
          System.out.print(ex);
     }
          
+         controlador.llenarCategorias(); 
          controlador.ordenarDatos();
-        
+         controlador.insertarVideosCategorias();
+         llenarDatosIniciales(controlador.getListaVideo());
+         onClickBuscar();
+    }
+    
+    public void onClickBuscar(){
+        buscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                 buscarListaxCategoria();
+            }
+        });
+    }
+
+    public void llenarDatosIniciales(List<Video> videos){
+        for(Video video : videos ){
+             modelo.addRow(new String[] {
+                                         video.getTitulo(),
+                                         video.getCasting(), 
+                                         video.getPais(), 
+                                         video.getTipo(),
+                                         video.getDirector(),
+                                         video.getAño_produccion(),
+                                         video.getAudiencia(),
+                                         video.getDuracion(),
+                                         video.getCategoria(),
+                                         video.getFecha_agregacion()});
+        }
+    }
+    
+    public void buscarListaxCategoria(){
+       
+        Arbol_Binario arbol= controlador.getArbol();
+        if(tfCategoria.getText() != null && tfCategoria.getText().length()>0){
+            Nodo nodo = arbol.buscarNodo(tfCategoria.getText());
+            if( nodo != null ){
+                modelo.setRowCount(0);
+                llenarDatosIniciales(nodo.getCategoria().getListaVideo());
+            }else{
+                System.out.println("hola"); 
+            }
+        }
     }
     
     public Controlador getControlador() {
