@@ -12,11 +12,22 @@ public class Arbol_Binario
     public boolean arbolVacio(){
         return raiz == null;
     }
-
+    /**
+     * Obtener raiz.
+     *
+     * 
+     * @return raiz (Nodo)
+     */
     public Nodo getRaiz(){
-        return raiz;
+        return this.raiz;
     }
-
+    
+    /**
+     * Busca elemento.
+     * 
+     * @param categoria(String)
+     * @return     elementoEncontrado (boolean)
+     */
     public boolean buscarElemento(String categoria){
         boolean elementoEncontrado = false;
         Nodo aux = raiz;
@@ -35,12 +46,19 @@ public class Arbol_Binario
         return elementoEncontrado;
     }
     
+    /**
+     * Busca el nodo.
+     * 
+     * @param categoria(String)
+     * @return     aux (Nodo)
+     */
     public Nodo buscarNodo(String categoria){
+        boolean elementoEncontrado = false;
         Nodo aux = raiz;
-        while(aux != null){
+        while(aux != null && !elementoEncontrado){
             
             if(aux.getCategoria().getNombre().toUpperCase().trim().equals(categoria.toUpperCase().trim())){ 
-                System.out.println(aux.getCategoria().getNombre().toUpperCase() +"  "+categoria.toUpperCase());
+                elementoEncontrado = true;
                 return aux;
             }else{
                 if( aux.getCategoria().getNombre().charAt(0) < categoria.charAt(0)){
@@ -50,10 +68,15 @@ public class Arbol_Binario
                 }
             }
         }
-        return null;
+        return aux;
     }
 
-    
+     /**
+     * Agrega el video.
+     * 
+     * @param video(Video)
+     * 
+     */
     public void agregarVideo(Video video){
         boolean elementoEncontrado = false;
         if(!arbolVacio()){
@@ -72,21 +95,31 @@ public class Arbol_Binario
             }   
         }
     }
-
+    /**
+     * Imprimir en orden.
+     * 
+     * @param n(Nodo)
+     * 
+     */
     public void inOrder(Nodo n) {
         if (n != null) {
             inOrder(n.getNodoIzquierda());
-            System.out.println("Categoria "+n.getCategoria().getNombre());
-            for(Video v : n.getCategoria().getListaVideo()){
+           /// System.out.println("Categoria "+n.getCategoria().getNombre());
+           /* for(Video v : n.getCategoria().getListaVideo()){
                 System.out.println("Nombre: " + v.getTitulo());
                 System.out.println("Descripcion: " + v.getDescripcion());
                 System.out.println("Categoria: " + v.getCategoria());
-            }
+            }*/
             inOrder(n.getNodoDerecho());
         }
     }
 
-    
+      /**
+     * Insertar dato.
+     * 
+     * @param dato(Categoria)
+     * 
+     */    
     public void insertar(Categoria dato) {
         if (this.raiz == null) {
             this.raiz = new Nodo(dato);
@@ -94,7 +127,12 @@ public class Arbol_Binario
             this.insertar(this.raiz, dato);
         }
     }
-
+    /**
+     * Inserta el nodo padre.
+     * 
+     * @param padre(Nodo),dato(Categoria)
+     * 
+     */
     private void insertar(Nodo padre, Categoria dato) {
        
             if (dato.getNombre().charAt(0) > padre.getCategoria().getNombre().charAt(0)) {

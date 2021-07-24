@@ -31,8 +31,9 @@ public class Controlador
     private List<String[]> datos;
     private String separador=";";
     private String quote ="\"";
-    private Arbol_Binario arbolCategorias;
-    private List<Video> videos;
+    private static Arbol_Binario arbolCategorias;
+    private static List<Video> videos;
+    private Nodo raiz;
 
     public Controlador(){
         data = new ArrayList<String>();
@@ -56,7 +57,7 @@ public class Controlador
         BufferedReader br = null;
 
         try {
-
+            
             br =new BufferedReader(new FileReader("netflix_titles_dep.csv"));
             String line = br.readLine();
             while (null!=line) {
@@ -76,7 +77,6 @@ public class Controlador
                 }
             }
 
-            System.out.println(datos.size());
 
         } catch (Exception e) {
             System.out.println(e);
@@ -94,27 +94,62 @@ public class Controlador
         }
 
     }
-
+    
+      /**
+     * Obtener VentanaPrincipal.
+     *
+     * 
+     * @return principal (VentanaPrincipal)
+     */
     public VentanaPrincipal getVentanaPrincipal() {
         return principal;
     }
+      /**
+     * Setear VentanaPrincipal.
+     *
+     * @param principal (VentanaPrincipal).
+     * 
+     */
     public void setVentanaPrincipal(VentanaPrincipal principal) {
         this.principal = principal;
 
     }
     
+      /**
+     * Obtener arbolCategorias.
+     *
+     * 
+     * @return arbolCategorias (Arbol_Binario)
+     */
     public Arbol_Binario getArbol() {
         return arbolCategorias;
     }
+        /**
+     * Setear arbolCategorias.
+     *
+     * @param arbolCategorias (Arbol_Binario).
+     * 
+     */
     public void setArbol(Arbol_Binario arbolCategorias) {
         this.arbolCategorias = arbolCategorias;
 
     }
 
-    
+     /**
+     * Obtener ListaVideo.
+     *
+     * 
+     * @return videos (List<Video> )
+     */
     public List<Video> getListaVideo() {
         return videos;
     }
+        /**
+     * Setear ListaVideo.
+     *
+     * @param videos (List<Video> ).
+     * 
+     */
     public void setListaVideo(List<Video> videos) {
         this.videos = videos;
 
@@ -124,6 +159,7 @@ public class Controlador
         FileInputStream input_document = new FileInputStream(new File("netflix_movies.xls")); 
         HSSFWorkbook workbook = new HSSFWorkbook(input_document);
         HSSFSheet hoja = workbook.getSheetAt(0);
+        data.clear();
         for( Row row: hoja){
             for(int cn=0; cn<row.getLastCellNum(); cn++) {
                 Cell cell = row.getCell(cn, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -144,6 +180,10 @@ public class Controlador
             
         }
     }
+    
+    public void agregarNuevaCategorias(Categoria nuevaCategoria){
+            arbolCategorias.insertar(nuevaCategoria);
+    }
 
     public void imprimirLista(){
         llenarCategorias();
@@ -151,6 +191,7 @@ public class Controlador
     }
 
     public void ordenarDatos(){
+        videos.clear();
         for(int i = 12; i< data.size(); i+=12){
             // objeto de video y llenarlo con los set
             Video video = new Video();
@@ -171,7 +212,8 @@ public class Controlador
     }
     
     int index=0;
-    public void insertarVideosCategorias(){
+    public void insertarVideosCategorias(Arbol_Binario arbolCategorias){
+        
          for(int i=0; i<categorias.length; i++){
              index = i;
              List<Video> videosCategorias = videos.stream().filter(x -> x.getCategoria().contains(categorias[index])).collect(Collectors.toList());  
@@ -179,6 +221,33 @@ public class Controlador
              Nodo aux = arbolCategorias.buscarNodo(categorias[index]);
              aux.getCategoria().setListaVideo((ArrayList<Video>)videosCategorias);
         }
-     
+       // System.out.println("en controller "+arbolCategorias.arbolVacio());
+    }
+    
+    public void insertarVideosCategoriasNuevo(Video video, String categoria){
+             Nodo aux = arbolCategorias.buscarNodo(categoria);
+             aux.getCategoria().getListaVideo().add(video);
+       // System.out.println("en controller "+arbolCategorias.arbolVacio());
+    }
+    
+    public List<Video> buscarCategoria(String categoria, Arbol_Binario arbolCategorias){
+            Nodo nodo = arbolCategorias.buscarNodo(categoria);
+            if( nodo != null ){
+                return nodo.getCategoria().getListaVideo();
+            }else{
+                System.out.println(nodo); 
+                return null;
+            }
+    }
+    public List<Video> buscarVideoTitulo(String nombreVideo){
+        return videos.stream().filter(x -> x.getTitulo().toUpperCase().trim().contains(nombreVideo.toUpperCase().trim())).collect(Collectors.toList());     
+    }
+    
+    public List<Video> buscarVideoActor(String actor){
+        return videos.stream().filter(x -> x.getCasting().toUpperCase().trim().contains(actor.toUpperCase().trim())).collect(Collectors.toList());     
+    }
+    
+    public List<Video> buscarVideoPais(String pais){
+        return videos.stream().filter(x -> x.getPais().toUpperCase().trim().contains(pais.toUpperCase().trim())).collect(Collectors.toList());     
     }
 }

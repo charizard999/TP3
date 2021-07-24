@@ -15,9 +15,21 @@ public class Persona
     {
     }
     
+         /**
+     * Setear nombre.
+     *
+     * @param nombre (String).
+     * 
+     */
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
+    /**
+     * Obtener nombre.
+     *
+     * 
+     * @return nombre (String)
+     */
     public String getNombre(){
         return nombre;
     }
